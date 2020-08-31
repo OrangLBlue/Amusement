@@ -1,0 +1,36 @@
+#ifndef _HEAD_H
+#define _HEAD_H
+
+#include "sys.h"
+#include "delay.h"
+#include "usart.h"
+#include "sram.h" 
+#include "led.h"
+#include "lcd.h"
+#include "key.h"  
+#include "show_badapple.h"
+#include "usmart.h"  
+#include "sdio_sdcard.h"    
+#include "malloc.h" 
+#include "w25qxx.h"    
+#include "ff.h"  
+#include "exfuns.h"    
+#include "fontupd.h"
+#include "text.h"	
+#include "timer.h"
+#include "string.h"
+#include "exti.h"
+#include "usart3.h"
+#include "voice.h"
+#include "interface.h"
+#include "readp.h"
+#include "piclib.h"
+#include "usart2.h"
+#include "rng.h"
+#include <stdlib.h>
+#include "mode.h"
+#include "delay.h"
+#include "view.h"
+#include "tetris.h"
+
+#endif
