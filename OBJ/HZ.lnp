@@ -19,7 +19,7 @@
 "..\obj\rng.o"
 "..\obj\delay.o"
 "..\obj\sys.o"
-"..\obj\usart_1.o"
+"..\obj\usart.o"
 "..\obj\startup_stm32f40_41xxx.o"
 "..\obj\misc.o"
 "..\obj\stm32f4xx_gpio.o"
@@ -61,7 +61,12 @@
 "..\obj\mode.o"
 "..\obj\tetris.o"
 "..\obj\view.o"
---strict --scatter "..\OBJ\HZ.sct"
+"..\obj\food.o"
+"..\obj\game.o"
+"..\obj\snake.o"
+"..\obj\wall.o"
+"..\obj\csnake.o"
+--library_type=microlib --strict --scatter "..\OBJ\HZ.sct"
 --summary_stderr --info summarysizes --map --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
 --list "..\OBJ\HZ.map" -o ..\OBJ\HZ.axf

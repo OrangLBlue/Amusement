@@ -5,6 +5,7 @@
 #include "show_badapple.h"
 #include "usart3.h"
 #include "voice.h"
+#include "string.h"
 
    u8 Compare(char* usart,char* chA)
 {

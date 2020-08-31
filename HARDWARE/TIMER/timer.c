@@ -13,7 +13,7 @@
 //All rights reserved									  
 ////////////////////////////////////////////////////////////////////////////////// 	 
 
-
+int g_nTime = 0;
 //通用定时器3中断初始化
 //arr：自动重装值。
 //psc：时钟预分频数
@@ -38,7 +38,7 @@ void TIM3_Int_Init(u16 arr,u16 psc)
 	TIM_Cmd(TIM3,ENABLE); //使能定时器3
 	
 	NVIC_InitStructure.NVIC_IRQChannel=TIM3_IRQn; //定时器3中断
-	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority=0x03; //抢占优先级1
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority=0x02; //抢占优先级1
 	NVIC_InitStructure.NVIC_IRQChannelSubPriority=0x03; //子优先级3
 	NVIC_InitStructure.NVIC_IRQChannelCmd=ENABLE;
 	NVIC_Init(&NVIC_InitStructure);
@@ -52,7 +52,10 @@ void TIM3_IRQHandler(void)
 	if(TIM_GetITStatus(TIM3,TIM_IT_Update)==SET) //溢出中断
 	{
 		LED1=!LED1;//DS1翻转
-		TIM_ClearITPendingBit(TIM3,TIM_IT_Update);  //清除中断标志位
+		if(g_nTime == 10)
+			g_nTime = 0;
+		g_nTime++;	
+		//USART_SendData(USART1,g_nTime);		
 	}
-	
+	TIM_ClearITPendingBit(TIM3,TIM_IT_Update);  //清除中断标志位
 }

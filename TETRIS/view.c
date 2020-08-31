@@ -1,30 +1,13 @@
 #include "view.h"
 #include "mode.h"
-#include "stdio.h"
-#include "sys.h"
 #include "delay.h"
-#include "usart.h"
-#include "sram.h" 
-#include "led.h"
-#include "lcd.h"
-#include "key.h"  
-#include "show_badapple.h"
-#include "usmart.h"  
-#include "sdio_sdcard.h"    
-#include "malloc.h" 
-#include "w25qxx.h"    
-#include "ff.h"  
-#include "exfuns.h"    
-#include "fontupd.h"
+#include "lcd.h" 
+#include "tetris.h"
 #include "text.h"	
 #include "timer.h"
 #include "string.h"
-#include "exti.h"
-#include "usart3.h"
 #include "voice.h"
-#include "interface.h"
 #include "readp.h"
-#include "piclib.h"
 #include "usart2.h"
 
 
@@ -33,22 +16,78 @@ int g_End = 0;
 int g_BrickCount = 0;
 //int g_nFlag = 1;
 
+
+u8 TetrisBegin(void)
+{
+	u8 uDegree = 15;
+	char chKey = 0;
+	u8 uFlag = 1;
+	
+	ReadP_From_SD("0:/PICTURE","0:/PICTURE/0002.bmp");
+	delay_ms(100);
+	POINT_COLOR = BRRED;
+	Show_Str(64,120,240,24,"俄罗斯方块",24,1);	
+	
+	POINT_COLOR = BLUE;	
+	Show_Str(48,168,240,16,"请选择你要挑战的难度",16,1);
+	
+	Show_Str(48,192,240,16,"  简单  普通  困难  ",16,1);
+	
+	Show_Str(48,216,240,16,"  ←     ↑     →  ",16,1);
+	
+	while(uFlag)
+	{
+		chKey = USART_ReceiveData(USART2);
+		
+		switch(chKey)
+		{
+			case'a':
+				uDegree = 3;g_key = 0;uFlag = 0;
+				break;
+			case'w':
+				uDegree = 2;g_key = 0;uFlag = 0;
+				break;
+			case'd':
+				uDegree = 1;g_key = 0;uFlag = 0;
+				break;
+			case'q':
+				uDegree = 0;
+				g_key = 'x';
+				LCD_Display_Dir(0);
+				LCD_Scan_Dir(L2R_U2D);
+				g_nData = 0;uFlag = 0;
+				break;
+			case'x':
+				uDegree = 0;
+				g_key = 'x';
+				LCD_Display_Dir(0);
+				LCD_Scan_Dir(L2R_U2D);
+				g_nData = 0;uFlag = 0;
+				break;
+			default:
+				break;
+		}
+	}
+	delay_ms(100);
+	return uDegree; 
+}
+
 void OnLeft(void)
 {
 	//若能左移，则左移
-	if (IsCanMove(g_nRow, g_nCol - 1))
+	if (TeIsCanMove(g_nRow, g_nCol - 1))
 	{
 		g_nCol--;
-		ShowGame();
+		TeShowGame();
 	}
 }
 
 void OnRight(void)
 {
-	if (IsCanMove(g_nRow, g_nCol + 1))
+	if (TeIsCanMove(g_nRow, g_nCol + 1))
 	{
 		g_nCol++;
-		ShowGame();
+		TeShowGame();
 	}
 }
 
@@ -57,16 +96,17 @@ void OnUp(void)
 	if (IsCanRotate())
 	{
 		Rotate();
-		ShowGame();
+		TeShowGame();
 	}
 }
 
 void OnDown(void)
 {
-	if (IsCanMove(g_nRow + 1, g_nCol))
+	if (TeIsCanMove(g_nRow + 1, g_nCol))
 	{
 		g_nRow++;
-		ShowGame();	
+			
+		TeShowGame();	
 	}
 	else
 	{
@@ -76,9 +116,8 @@ void OnDown(void)
 		Remove();
 		ShowBackground();
 		GetNewBrick();
-		
 		//判断游戏是否结束，并给出对应提示	
-		if (IsCanMove(g_nRow + 1, g_nCol))
+		if (TeIsCanMove(g_nRow + 1, g_nCol))
 		{
 			g_BrickCount++;
 		}
@@ -91,11 +130,14 @@ void OnDown(void)
 }
 
 
-void ShowGame(void)
+void TeShowGame(void)
 {
 	//system("cls");
 	//CombineBgBrick();
 	ShowBrick();
+	POINT_COLOR = BRRED;
+	Show_Str(0,0,64,16,"Score：",16,1); 
+	BrickCount(64, 0, 128, 16, 16, 1);//显示得分
 	//DetachBgBrick();
 }
 
@@ -142,9 +184,6 @@ void ShowBrick(void)
 				//printf("■");
 			}
 		}
-		POINT_COLOR = BRRED;
-		Show_Str(0,0,64,16,"Score：",16,1); 
-		BrickCount(64, 0, 128, 16, 16, 1);
 		//MoveCursorTo(g_nRow, g_nCol);
 		//printf("\r\n");
 
@@ -156,9 +195,9 @@ void ShowBackground(void)
 {
 	u8 nRow;
 	u8 nCol;
-	for (nRow = 0; nRow < GAME_ROWS; nRow++)
+	for (nRow = 0; nRow < TEGAME_ROWS; nRow++)
 	{
-		for (nCol = 0; nCol < GAME_COLS; nCol++)
+		for (nCol = 0; nCol < TEGAME_COLS; nCol++)
 		{
 			if (g_chBackground[nRow][nCol] == 1)
 			{
@@ -188,18 +227,18 @@ void Remove(void)
 	u8 nCol;
 	u8 i;
 	u8 j;
-	for (nRow = GAME_ROWS - 2; nRow > 0; nRow--)
+	for (nRow = TEGAME_ROWS - 2; nRow > 0; nRow--)
 	{
-		for (nCol = 1; nCol < GAME_COLS -1; nCol++)
+		for (nCol = 1; nCol < TEGAME_COLS -1; nCol++)
 		{
 			if (g_chBackground[nRow][nCol] == 1)
 				nCount++;
 		}
-		if (nCount == GAME_COLS-2)
+		if (nCount == TEGAME_COLS-2)
 		{
 			for (i = nRow; i > 0; i--)
 			{
-				for (j = 0; j < GAME_COLS - 1; j++)
+				for (j = 0; j < TEGAME_COLS - 1; j++)
 				{
 					g_chBackground[i][j] = g_chBackground[i - 1][j];
 				}
@@ -249,16 +288,16 @@ void IsEnd(void)
 	LCD_Display_Dir(0);
 	LCD_Scan_Dir(L2R_U2D);
 	
-	POINT_COLOR = BRRED;
+	POINT_COLOR = RED;
 	Show_Str(48,24,96,24,"Score：",24, 0); 
 	BrickCount(120, 24, 128, 24, 24, 0);	
 		
 	POINT_COLOR = BRED;
-	Show_Str(0,72,240,24," 啊！砖砖下不来啦！ ",24,0); 
+	Show_Str(0,72,240,24," 啊！砖砖下不来啦！  ",24,0); 
 	Show_Str(0,120,240,24,"您是否要开始新的旅程",24,0);	
 		
 		
-	POINT_COLOR = LIGHTGREEN;
+	POINT_COLOR = GREEN;
 	Show_Str(0,216,240,16,"确定键重新开始，返回键退出游戏",16,0);		
 	
 	
@@ -272,14 +311,17 @@ void IsEnd(void)
 					g_key = 'x';
 					voice(41);
 					g_nData = 0;
+					g_uFlag = 0;
 					break;
 				case'x':
 					g_key = 'x';
 					voice(41);
 					g_nData = 0;
+					g_uFlag = 0;
 					break;
 				case'r':				
 					g_nData = 2;
+					g_uFlag = 2;
 					voice(41);				
 					break;
 				default:

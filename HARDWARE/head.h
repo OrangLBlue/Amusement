@@ -27,10 +27,9 @@
 #include "piclib.h"
 #include "usart2.h"
 #include "rng.h"
-#include <stdlib.h>
-#include "mode.h"
 #include "delay.h"
-#include "view.h"
 #include "tetris.h"
+#include "CSnake.h"
+#include "rtc.h"
 
 #endif

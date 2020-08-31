@@ -46,3 +46,4 @@
 ..\obj\interface.o: D:\keil5\MDK\ARM\ARMCC\Bin\..\include\stdio.h
 ..\obj\interface.o: ..\SYSTEM\delay\delay.h
 ..\obj\interface.o: ..\PICTURE\readp.h
+..\obj\interface.o: ..\HARDWARE\VOICE\voice.h

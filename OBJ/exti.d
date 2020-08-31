@@ -43,3 +43,4 @@
 ..\obj\exti.o: ..\HARDWARE\USART3\usart3.h
 ..\obj\exti.o: D:\keil5\MDK\ARM\ARMCC\Bin\..\include\stdio.h
 ..\obj\exti.o: ..\HARDWARE\VOICE\voice.h
+..\obj\exti.o: D:\keil5\MDK\ARM\ARMCC\Bin\..\include\string.h

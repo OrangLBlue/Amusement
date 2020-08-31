@@ -6,7 +6,8 @@ u16 g_key;
 u8 g_nData = 0;
 
 
-void Init();//初始化
+
+void Init(void);//初始化
 
 int main(void)
 {	
@@ -28,19 +29,25 @@ int main(void)
 //		}
 		switch(g_key)
 		{
+			case 'v':
+					g_nData = 1;
+					RunSnake();
+					voice(41); break;
 			case 'z':
 					g_nData = 1;
+					g_uFlag = 1;
 					RunTetris();
 					voice(41); break;
 			case 'c':
 					GPIO_SetBits(GPIOB, GPIO_Pin_8);
-					USART_SendData(USART1,'s');
+					//USART_SendData(USART1,'s');
 					delay_ms(1);GPIO_ResetBits(GPIOF, GPIO_Pin_9);
 					g_nData = 1;
-					delay_ms(1000);
+					delay_ms(500);
 					Show_Bad_Apple();
 					voice(41);
-					GPIO_ResetBits(GPIOB, GPIO_Pin_8);break;
+					GPIO_ResetBits(GPIOB, GPIO_Pin_8);
+					break;
 			default:break;
 	  }
 	}
@@ -52,7 +59,7 @@ int main(void)
 //void UartASendStr (u8 *pucStr, u8 ulNum);
 //void ACK(void) ;
 
-void Init()
+void Init(void)
 {
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);//设置系统中断优先级分组2
 	delay_init(168);  //初始化延时函数
@@ -65,12 +72,9 @@ void Init()
  	KEY_Init();					//按键初始化  
 	W25QXX_Init();				//初始化W25Q128
 	usmart_dev.init(168);		//初始化USMART
-	voice(0);
-	voice(41);
+		
 	EXTIX_Init();
-	TIM3_Int_Init(9999,8399);//初始化这个定时器用于测速使用 1秒
-	//TIM3_Int_Init(9999,8399);
-	TIM_Cmd(TIM3,DISABLE); 	
+	TIM3_Int_Init(1899,8399);//初始化这个定时器用于测速使用 秒
 	
 	FSMC_SRAM_Init();    	//初始化外部SRAM  
 	my_mem_init(SRAMIN);		//初始化内部内存池 
@@ -79,6 +83,8 @@ void Init()
 	exfuns_init();				//为fatfs相关变量申请内存  
 	piclib_init();
   RNG_Init();	
+	//My_RTC_Init();		 		//初始化RTC
+	RTC_Set_WakeUp(RTC_WakeUpClock_CK_SPRE_16bits,0);		//配置WAKE UP中断,1秒钟中断一次
   f_mount(fs[0],"0:",1); 		//挂载SD卡 
  	f_mount(fs[1],"1:",1); 		//挂载FLASH.
 	delay_ms(10);
@@ -90,29 +96,34 @@ void Init()
   LCD_Clear(WHITE);
 	delay_ms(10);
 	ShowBagin();//开始	
+	voice(0);               //初始化音量为24
+	voice(39);              //初始化模式为单曲循环
+	voice(41);							//初始化为不播放任何音乐
+
+
 }
 
 
 //模块调试用主函数
-int main1(void)
-{	
-	Init();
-	
-	
-	while(1)
-	{ 		
-		POINT_COLOR = BRRED;
-		Show_Str(48,24,96,24,"Score：",24, 0); 
-		BrickCount(120, 24, 128, 24, 24, 0);	
-		
-		POINT_COLOR = BRED;
-		Show_Str(0,72,240,24," 啊！砖砖下不来啦！",24,0); 
-		Show_Str(0,120,240,24,"您是否要开始新的旅程",24,0);	
-		
-		
-		POINT_COLOR = LIGHTGREEN;
-		Show_Str(0,216,240,16,"确定键重新开始，返回键退出游戏",16,0);		
-	
-	}
-	
-}
+//int main1(void)
+//{	
+//	Init();
+//	
+//	
+//	while(1)
+//	{ 		
+//		POINT_COLOR = BRRED;
+//		Show_Str(48,24,96,24,"Score：",24, 0); 
+//		BrickCount(120, 24, 128, 24, 24, 0);	
+//		
+//		POINT_COLOR = BRED;
+//		Show_Str(0,72,240,24," 啊！砖砖下不来啦！",24,0); 
+//		Show_Str(0,120,240,24,"您是否要开始新的旅程",24,0);	
+//		
+//		
+//		POINT_COLOR = LIGHTGREEN;
+//		Show_Str(0,216,240,16,"确定键重新开始，返回键退出游戏",16,0);		
+//	
+//	}
+//	
+//}

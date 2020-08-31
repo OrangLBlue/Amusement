@@ -7,11 +7,12 @@
 #include "usart.h"
 #include "delay.h"
 #include "readp.h"
-
+#include "voice.h"
 
 void ShowBagin(void)
 {
-  ReadP_From_SD("0:/PICTURE","0:/PICTURE/0002.bmp");
+	voice(41);
+  ReadP_From_SD("0:/PICTURE","0:/PICTURE/0001.bmp");
 	POINT_COLOR=RED; 
 	Show_Str(0,0,240,24,"这是一张封面！！！",24,1); 
 //	Show_Str(90,55,240,16,"课程设计",16,1);
@@ -28,7 +29,6 @@ void ShowBagin(void)
 //	delay_ms(1500);
 // 
 }
-
 
 
 

@@ -186,7 +186,7 @@
             <hadIRAM2>1</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
-            <useUlib>0</useUlib>
+            <useUlib>1</useUlib>
             <EndSel>0</EndSel>
             <uLtcg>0</uLtcg>
             <nSecure>0</nSecure>
@@ -332,7 +332,7 @@
               <MiscControls></MiscControls>
               <Define>STM32F40_41xxx,USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\CORE;..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\USER;..\HARDWARE\LED;..\HARDWARE\LCD;..\HARDWARE\KEY;..\HARDWARE\SRAM;..\HARDWARE\SDIO;..\MALLOC;..\USMART;..\HARDWARE\SPI;..\HARDWARE\W25QXX;..\FATFS\exfuns;..\FATFS\src;..\TEXT;..\FWLIB\inc;..\HARDWARE\TIMER;..\HARDWARE\BADAPPLE;..\HARDWARE\EXTI;..\HARDWARE\RTC;..\HARDWARE\VOICE;..\HARDWARE\USART3;..\INTERFACE;..\PICTURE;..\HARDWARE\USART2;..\TETRIS;..\HARDWARE\RNG;..\HARDWARE</IncludePath>
+              <IncludePath>..\CORE;..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\USER;..\HARDWARE\LED;..\HARDWARE\LCD;..\HARDWARE\KEY;..\HARDWARE\SRAM;..\HARDWARE\SDIO;..\MALLOC;..\USMART;..\HARDWARE\SPI;..\HARDWARE\W25QXX;..\FATFS\exfuns;..\FATFS\src;..\TEXT;..\FWLIB\inc;..\HARDWARE\TIMER;..\HARDWARE\BADAPPLE;..\HARDWARE\EXTI;..\HARDWARE\RTC;..\HARDWARE\VOICE;..\HARDWARE\USART3;..\INTERFACE;..\PICTURE;..\HARDWARE\USART2;..\TETRIS;..\HARDWARE\RNG;..\HARDWARE;..\SNAKE</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -749,6 +749,36 @@
               <FileName>view.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\TETRIS\view.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>SNAKE</GroupName>
+          <Files>
+            <File>
+              <FileName>food.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\SNAKE\food.c</FilePath>
+            </File>
+            <File>
+              <FileName>game.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\SNAKE\game.c</FilePath>
+            </File>
+            <File>
+              <FileName>snake.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\SNAKE\snake.c</FilePath>
+            </File>
+            <File>
+              <FileName>wall.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\SNAKE\wall.c</FilePath>
+            </File>
+            <File>
+              <FileName>CSnake.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\SNAKE\CSnake.c</FilePath>
             </File>
           </Files>
         </Group>

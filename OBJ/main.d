@@ -70,6 +70,6 @@
 ..\obj\main.o: ..\PICTURE\gif.h
 ..\obj\main.o: ..\HARDWARE\USART2\usart2.h
 ..\obj\main.o: ..\HARDWARE\RNG\rng.h
-..\obj\main.o: ..\TETRIS\mode.h
-..\obj\main.o: ..\TETRIS\view.h
 ..\obj\main.o: ..\TETRIS\tetris.h
+..\obj\main.o: ..\SNAKE\CSnake.h
+..\obj\main.o: ..\HARDWARE\RTC\rtc.h

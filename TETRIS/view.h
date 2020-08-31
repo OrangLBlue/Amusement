@@ -5,9 +5,10 @@
 
 extern int g_BrickCount;
 
+u8 TetrisBegin(void);
 void ShowBackground(void);
 void ShowBrick(void);
-void ShowGame(void);
+void TeShowGame(void);
 void OnLeft(void);
 void OnRight(void);
 void OnUp(void);

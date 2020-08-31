@@ -16,7 +16,7 @@ void voice(u8 x)
 						while(USART_GetFlagStatus(USART3,USART_FLAG_TC)!=SET);//等待发送结束
 						USART_SendData(USART3, 0x06);//向串口3发送数据
 						while(USART_GetFlagStatus(USART3,USART_FLAG_TC)!=SET);//等待发送结束
-						USART_SendData(USART3, 0x0f);//向串口3发送数据
+						USART_SendData(USART3, 0x0a);//向串口3发送数据
 						while(USART_GetFlagStatus(USART3,USART_FLAG_TC)!=SET);//等待发送结束
 						USART_SendData(USART3, 0xef);//向串口3发送数据
 						while(USART_GetFlagStatus(USART3,USART_FLAG_TC)!=SET);//等待发送结束
@@ -39,7 +39,7 @@ void voice(u8 x)
 						delay_ms(1200);
 		break;
 		
-		case 2:  
+		case 2: //播放曲目2 
 						USART_SendData(USART3, 0x7e);//向串口3发送数据
 						while(USART_GetFlagStatus(USART3,USART_FLAG_TC)!=SET);//等待发送结束
 						USART_SendData(USART3, 0x04);//向串口3发送数据
@@ -631,33 +631,33 @@ void voice(u8 x)
 						delay_ms(1400);
 		break;
 		
-		case 39:
+		case 39://单曲循环
 						USART_SendData(USART3, 0x7e);//向串口3发送数据
-						while(USART_GetFlagStatus(USART3,USART_FLAG_TC)!=SET);//等待发送结束
-						USART_SendData(USART3, 0x04);//向串口3发送数据
 						while(USART_GetFlagStatus(USART3,USART_FLAG_TC)!=SET);//等待发送结束
 						USART_SendData(USART3, 0x03);//向串口3发送数据
 						while(USART_GetFlagStatus(USART3,USART_FLAG_TC)!=SET);//等待发送结束
-						USART_SendData(USART3, 0x00);//向串口3发送数据
+						USART_SendData(USART3, 0x11);//向串口3发送数据
 						while(USART_GetFlagStatus(USART3,USART_FLAG_TC)!=SET);//等待发送结束
-						USART_SendData(USART3, 0x27);//向串口3发送数据
+						USART_SendData(USART3, 0x03);//向串口3发送数据
 						while(USART_GetFlagStatus(USART3,USART_FLAG_TC)!=SET);//等待发送结束
+//						USART_SendData(USART3, 0x27);//向串口3发送数据
+//						while(USART_GetFlagStatus(USART3,USART_FLAG_TC)!=SET);//等待发送结束
 						USART_SendData(USART3, 0xef);//向串口3发送数据
 						while(USART_GetFlagStatus(USART3,USART_FLAG_TC)!=SET);//等待发送结束
 						delay_ms(1400);
 		break;
 		
-		case 40:
+		case 40://单曲播放模式
 						USART_SendData(USART3, 0x7e);//向串口3发送数据
-						while(USART_GetFlagStatus(USART3,USART_FLAG_TC)!=SET);//等待发送结束
-						USART_SendData(USART3, 0x04);//向串口3发送数据
 						while(USART_GetFlagStatus(USART3,USART_FLAG_TC)!=SET);//等待发送结束
 						USART_SendData(USART3, 0x03);//向串口3发送数据
 						while(USART_GetFlagStatus(USART3,USART_FLAG_TC)!=SET);//等待发送结束
-						USART_SendData(USART3, 0x00);//向串口3发送数据
+						USART_SendData(USART3, 0x11);//向串口3发送数据
 						while(USART_GetFlagStatus(USART3,USART_FLAG_TC)!=SET);//等待发送结束
-						USART_SendData(USART3, 0x28);//向串口3发送数据
+						USART_SendData(USART3, 0x04);//向串口3发送数据
 						while(USART_GetFlagStatus(USART3,USART_FLAG_TC)!=SET);//等待发送结束
+//						USART_SendData(USART3, 0x28);//向串口3发送数据
+//						while(USART_GetFlagStatus(USART3,USART_FLAG_TC)!=SET);//等待发送结束
 						USART_SendData(USART3, 0xef);//向串口3发送数据
 						while(USART_GetFlagStatus(USART3,USART_FLAG_TC)!=SET);//等待发送结束
 						delay_ms(1400);

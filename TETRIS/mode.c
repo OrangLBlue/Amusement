@@ -1,34 +1,9 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include "mode.h"
 #include "view.h"
-#include "usart.h"
-#include "sram.h" 
-#include "led.h"
-#include "lcd.h"
-#include "key.h"  
-#include "show_badapple.h"
-#include "usmart.h"  
-#include "sdio_sdcard.h"    
-#include "malloc.h" 
-#include "w25qxx.h"    
-#include "ff.h"  
-#include "exfuns.h"    
-#include "fontupd.h"
-#include "text.h"	
-#include "timer.h"
-#include "string.h"
-#include "exti.h"
-#include "usart3.h"
-#include "voice.h"
-#include "interface.h"
-#include "readp.h"
-#include "piclib.h"
-#include "usart2.h"
 #include "rng.h"
 
 
-char g_chBackground[GAME_ROWS][GAME_COLS];
+char g_chBackground[TEGAME_ROWS][TEGAME_COLS];
 char g_chBrick[4][4];
 int g_nShape = 0;//形状，系数16
 int g_nRotate = 0;//朝向，系数4
@@ -206,13 +181,13 @@ void InitBackground(void)
 {
 	u8 nRow;
 	u8 nCol;
-	for (nRow = 0; nRow < GAME_ROWS; nRow++)
+	for (nRow = 0; nRow < TEGAME_ROWS; nRow++)
 	{
-		for (nCol = 0; nCol < GAME_COLS; nCol++)
+		for (nCol = 0; nCol < TEGAME_COLS; nCol++)
 		{
-			if (nRow == GAME_ROWS - 1
+			if (nRow == TEGAME_ROWS - 1
 				|| nCol == 0
-				|| nCol == GAME_COLS - 1)
+				|| nCol == TEGAME_COLS - 1)
 			{
 				g_chBackground[nRow][nCol] = 1;
 			}
@@ -231,7 +206,7 @@ void GetNewBrick(void)
 	u8 nShapeCount;
 	u8 nPoolRows;
 	g_nRow = 0;
-	g_nCol = GAME_COLS / 2 - 1;   
+	g_nCol = TEGAME_COLS / 2 - 1;   
 
 	nShapeCount = sizeof(g_chBrickPool) / sizeof(g_chBrickPool[0]) / 16;//整个数组所站的空间/第一个元素所占的空间/一个形状包含的元素个数，求出总共有多少个形状
 	g_nShape = RNG_Get_RandomNum() % nShapeCount;   //形状总数量范围内随机
@@ -251,7 +226,7 @@ void GetNewBrick(void)
 }
 
 
-int IsCanMove(int nToRow, int nToCol)    //碰撞检测
+int TeIsCanMove(int nToRow, int nToCol)    //碰撞检测
 {
 	u8 nRow;
 	u8 nCol;
