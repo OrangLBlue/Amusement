@@ -12,8 +12,6 @@
 
 void Show_Bad_Apple(void)
 {
-	
-	u8  key;
 	u8 *tempbuf;
 //	u8 *pname;
 	//u8 fn;
@@ -29,30 +27,26 @@ void Show_Bad_Apple(void)
 	//voice(3);
 	
 	voice(1);
-
-  voice(1);
 	while(g_nData == 1)
 	{
 		tempbuf=mymalloc(SRAMEX,mm_num);
 		fftemp=(FIL*)mymalloc(SRAMEX,sizeof(FIL));//申请内存
 		if(fftemp == NULL)
 		{
-		POINT_COLOR=RED; 
-		Show_Str(30,170,240,16,"没有图片文件!",16,0);
-		delay_ms(200);				  
-		LCD_Fill(30,170,240,186,WHITE);//清除显示	     
-		delay_ms(200);		
-		break;
+			POINT_COLOR=RED; 
+			Show_Str(30,170,240,16,"没有图片文件!",16,0);
+			delay_ms(200);				  
+			LCD_Fill(30,170,240,186,WHITE);//清除显示	     
+			delay_ms(200);		
+			break;
 		}
 			
-//		strcpy((char*)pname,"0:/PICTURE/");				//复制路径(目录)
-//		strcat((char*)pname,(const char*)fn);  			//将文件名接在后面
 		f_open(fftemp,"0:/apple/apple.bin", FA_READ); //打开路径下文件
 		LCD_Scan_Dir(L2R_U2D);//从左到右,从上到下
 		LCD_Set_Window(0,0,320,240);
 		LCD_SetCursor(0,0);//设置光标位置  
 		LCD_WriteRAM_Prepare();   	//开始写入GRAM
-		len_num=mm_num;			//写入的数据长度
+		//len_num=mm_num;			//写入的数据长度
 		bread=mm_num;
 		mm_num=9600; //设置一个屏幕需要的内存
 		
@@ -63,7 +57,7 @@ void Show_Bad_Apple(void)
 //			TIM_Cmd(TIM3,ENABLE);
 //			TIM3->CNT=0;
 			f_read(fftemp,tempbuf,mm_num,(UINT *)&bread);
-			for(len_num=0;len_num < 9600;len_num++)
+			for(len_num=0;len_num < mm_num;len_num++)
 			{
 				dt=tempbuf[len_num];
 				for(num=0;num<8;num++)
@@ -80,10 +74,9 @@ void Show_Bad_Apple(void)
 			if (g_key == 'q' || g_key == 'x')
 			{
 				g_key = 'x';
-				voice(41);
 				g_nData = 0;
 			}
-			delay_ms(21);
+			delay_ms(19);
 //			num=TIM_GetCounter(TIM3);
 //			printf("刷屏速度:%d FPS\r\n",10000/num);
 //			TIM_Cmd(TIM3,DISABLE);				
