@@ -16,7 +16,7 @@ void voice(u8 x)
 						while(USART_GetFlagStatus(USART3,USART_FLAG_TC)!=SET);//等待发送结束
 						USART_SendData(USART3, 0x06);//向串口3发送数据
 						while(USART_GetFlagStatus(USART3,USART_FLAG_TC)!=SET);//等待发送结束
-						USART_SendData(USART3, 0x0a);//向串口3发送数据
+						USART_SendData(USART3, 0x14);//向串口3发送数据
 						while(USART_GetFlagStatus(USART3,USART_FLAG_TC)!=SET);//等待发送结束
 						USART_SendData(USART3, 0xef);//向串口3发送数据
 						while(USART_GetFlagStatus(USART3,USART_FLAG_TC)!=SET);//等待发送结束
