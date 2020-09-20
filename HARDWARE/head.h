@@ -31,5 +31,6 @@
 #include "tetris.h"
 #include "CSnake.h"
 #include "rtc.h"
+#include "show_aoligei.h"
 
 #endif

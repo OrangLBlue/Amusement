@@ -73,3 +73,4 @@
 ..\obj\main.o: ..\TETRIS\tetris.h
 ..\obj\main.o: ..\SNAKE\CSnake.h
 ..\obj\main.o: ..\HARDWARE\RTC\rtc.h
+..\obj\main.o: ..\HARDWARE\AOLIGEI\show_aoligei.h

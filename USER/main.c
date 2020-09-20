@@ -6,7 +6,6 @@ u16 g_key;
 u8 g_nData = 0;
 
 
-
 void Init(void);//初始化
 
 int main(void)
@@ -47,6 +46,13 @@ int main(void)
 					Show_Bad_Apple();
 					voice(41);
 					GPIO_ResetBits(GPIOB, GPIO_Pin_8);
+			case 'b':
+					delay_ms(1);
+					GPIO_ResetBits(GPIOF, GPIO_Pin_9);
+					g_nData = 1;
+					delay_ms(500);
+					Show_Aligei();
+					voice(41); 
 					break;
 			default:break;
 	  }
@@ -73,6 +79,7 @@ void Init(void)
 	W25QXX_Init();				//初始化W25Q128
 	usmart_dev.init(168);		//初始化USMART
 		
+	
 	EXTIX_Init();
 	TIM3_Int_Init(1899,8399);//初始化这个定时器用于测速使用 秒
 	
@@ -96,10 +103,11 @@ void Init(void)
   LCD_Clear(WHITE);
 	delay_ms(10);
 	ShowBagin();//开始	
-	voice(0);               //初始化音量为24
+	voice(0); 							//初始化音量为24
+	delay_ms(50);
 	voice(39);              //初始化模式为单曲循环
+	delay_ms(50);
 	voice(41);							//初始化为不播放任何音乐
-
 
 }
 
